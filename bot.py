@@ -38,7 +38,7 @@ async def on_message(message):
 			return
 
 	# check for king words
-	if any(re.search(rf'[^a-zA-Z]{word}[$a-zA-Z]', message.content.lower()) for word in king_triggers):
+	if any(re.search(rf'(^|\W){word}(\W|$)', message.content.lower()) for word in king_triggers):
 		await message.reply('KING IN THE NORTH!!')
 		cooldowns[user_id] = current_time  # update last use
 
