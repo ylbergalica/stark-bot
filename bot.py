@@ -3,9 +3,15 @@ from discord.ext import commands
 import os
 from dotenv import load_dotenv
 
+import re
+import time
+
 load_dotenv()
 
 king_triggers = ["king", "mbret", "mret", "kral"]
+
+cooldown_seconds = 1  # Set cooldown period in seconds
+cooldowns = {}
 
 intents = discord.Intents.default()
 intents.messages = True
@@ -21,10 +27,20 @@ async def on_ready():
 async def on_message(message):
 	if message.author == bot.user:
 		return
+	
+	current_time = time.time()
+	user_id = message.author.id
+
+	# check if user is on cooldown
+	if user_id in cooldowns:
+		last_triggered = cooldowns[user_id]
+		if current_time - last_triggered < cooldown_seconds:
+			return
 
 	# check for king words
-	if any(word in message.content.lower() for word in king_triggers):
+	if any(re.search(rf'[^a-zA-Z]{word}[$a-zA-Z]', message.content.lower()) for word in king_triggers):
 		await message.reply('KING IN THE NORTH!!')
+		cooldowns[user_id] = current_time  # update last use
 
 	await bot.process_commands(message)
 
