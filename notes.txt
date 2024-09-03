@@ -1,0 +1,1 @@
+intnets - flags that you set to indicate which events your bot should listen to
