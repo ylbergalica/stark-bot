@@ -8,9 +8,9 @@ import time
 
 load_dotenv()
 
-king_triggers = ["king", "mbret", "mret", "kral"]
+king_triggers = ["king", "mbret", "mret", "kral", "krall", "llord", "lord", "perandor", "duk", "duke", "baron", "baroni", "princ", "prince", "kaiser", "emperor", "imperator", "imperator", "regent", "regjent", "regjente", "regent", "dekan", "sulltan", "sultan", "jon", "north", "joni", "jonin", "jonit"]
 
-cooldown_seconds = 1  # Set cooldown period in seconds
+cooldown_seconds = 5
 cooldowns = {}
 
 intents = discord.Intents.default()
